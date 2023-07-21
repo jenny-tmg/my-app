@@ -2,25 +2,28 @@ import React, { useContext } from "react";
 import { ShopContext } from "../../context/shop-context";
 
 
-export const Product =(props) =>{
-    const { id, productName , price, productImage} = props.data;    
-        const {addToCart, cartItems} = useContext(ShopContext)
-    
-        const cartItemCount = cartItems[id];
 
-        return (
-    <div className ="product">
-        <img src ={productImage} />
+export const Product = ({ data }) => {
+    const { id, productName, price, productImage } = data;
+    const { addToCart, cartItems } = useContext(ShopContext);
+  
+    const cartItemCount = cartItems[id];
+  
+    const fallbackImage = "https://fakestoreapi.com/products";
+  
+    return (
+      <div className="product">
+        <img src={productImage || fallbackImage} alt={productName} />
         <div className="description">
-            <p>
-                <b>{productName}</b>
-            </p>
-            <p>
-                ${price}
-            </p>
+          <p>
+            <b>{productName}</b>
+          </p>
+          <p>${price}</p>
         </div>
-        <button className ="addToCartBttn" onClick={() => addToCart(id)}> Add to Cart {cartItemCount> 0 && <> ({cartItemCount})</>}</button>
-        </div>
-    
+        <button className="addToCartBttn" onClick={() => addToCart(id)}>
+          Add to Cart {cartItemCount > 0 && <> ({cartItemCount})</>}
+        </button>
+      </div>
     );
-};
+  };
+  
