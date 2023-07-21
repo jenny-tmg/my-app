@@ -1,25 +1,47 @@
 import React, { useContext } from "react";
-import { ShopContext } from "../../context/shop-context";
+import { CartContext } from "../../context/cart-context";
 
 export const Product = ({ data }) => {
-  const { id, title, price, image, description } = data;
-  const { addToCart, cartItems } = useContext(ShopContext);
+  const { addToCart, cartItems } = useContext(CartContext);
 
-  const cartItemCount = cartItems[id];
+  const handleAddToCart = () => {
+    addToCart(data);
+  };
 
-  const fallbackImage = "https://fakestoreapi.com/products";
+  // Check if the data object is valid and contains the necessary properties
+  if (!data || typeof data !== "object") {
+    return <div>Error: Invalid product data</div>;
+  }
+
+  const { id, title, price, description, image, rating } = data;
+
+  if (!id || !title || !price || !description || !image || !rating) {
+    return <div>Error: Invalid product data properties</div>;
+  }
+
+  // Get the quantity of the item in the cart
+  const quantityInCart = cartItems[data.id] || 0;
 
   return (
-    <div className="product-card">
-      <img src={image || fallbackImage} alt={title} />
-      <div className="description">
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
-      <div className="price">${price}</div>
-      <button className="addToCartBttn" onClick={() => addToCart(id)}>
-        Add to Cart {cartItemCount > 0 && <> ({cartItemCount})</>}
+    <div className="bg-white rounded-lg shadow-lg p-4">
+      {/* Display the image */}
+      <img src={image} alt={title} className="w-full h-40 object-cover mb-2" />
+      <h3 className="text-lg font-bold mb-2">{title}</h3>
+      <p>{description}</p>
+      <p>Price: ${price}</p>
+      <button
+        className="mt-4 bg-black text-white py-2 px-4 rounded-md"
+        onClick={handleAddToCart}
+      >
+        Add to Cart
       </button>
+      <p>Quantity in Cart: {quantityInCart}</p>
     </div>
   );
 };
+
+
+
+
+
+

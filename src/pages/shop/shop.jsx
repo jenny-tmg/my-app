@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Product } from "./product";
-import "./shop.css";
 import axios from "axios";
 
 export const Shop = () => {
@@ -12,17 +11,14 @@ export const Shop = () => {
     });
   }, []);
 
-  
   if (products.length === 0) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="shop">
-      <div className="shopTitle">
-        <h2>Online Store</h2>
-      </div>
-      <div className="products">
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-2xl font-bold mb-4">Online Store</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products.map((product) => (
           <Product key={product.id} data={product} />
         ))}
@@ -30,4 +26,5 @@ export const Shop = () => {
     </div>
   );
 };
+
 

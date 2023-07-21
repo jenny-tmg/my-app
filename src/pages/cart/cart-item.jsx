@@ -18,14 +18,19 @@ export const CartItem = ({ itemId }) => {
     return <div>Loading...</div>; // Display a loading message while fetching the product data
   }
 
-  const quantity = cartItems[itemId];
+  const quantity = cartItems[itemId] || 0; // Ensure quantity is defined to avoid errors
 
-  const fallbackImage = "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg";
+  const fallbackImage =
+    "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg";
 
   return (
     <div className="cartItem">
       <div className="itemInfo">
-        <img src={product.image || fallbackImage} alt={product.title} />
+        <img
+          src={product.image || fallbackImage}
+          alt={product.title}
+          className="cartItemImage"
+        />
         <div className="description">
           <h3>{product.title}</h3>
           <p>{product.description}</p>
@@ -33,16 +38,29 @@ export const CartItem = ({ itemId }) => {
       </div>
       <div className="itemActions">
         <p>Price: ${product.price}</p>
-        <button className="removeBtn" onClick={() => removeFromCart(itemId)}>Remove</button>
+        <button
+          className="removeBtn"
+          onClick={() => removeFromCart(itemId)}
+        >
+          Remove
+        </button>
         <div className="quantity">
-          <button className="quantityBtn" onClick={() => removeFromCart(itemId)}>-</button>
+          <button
+            className="quantityBtn"
+            onClick={() => removeFromCart(itemId)}
+          >
+            -
+          </button>
           <span>{quantity}</span>
-          <button className="quantityBtn" onClick={() => addToCart(itemId)}>+</button>
+          <button className="quantityBtn" onClick={() => addToCart(itemId)}>
+            +
+          </button>
         </div>
       </div>
     </div>
   );
 };
+
 
 
 
