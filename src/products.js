@@ -9,6 +9,7 @@ import product8 from './assets/8.png';
 import product9 from './assets/9.png';
 import product10 from './assets/10.png';
 
+
 export const PRODUCTS =[
     {
         id:1,
