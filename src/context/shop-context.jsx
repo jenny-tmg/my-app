@@ -1,27 +1,44 @@
 import { createContext, useEffect, useState } from "react";
-import { PRODUCTS } from "../products";
+import axios from "axios";
 
 export const ShopContext = createContext(null);
 
-const getDefaultCart = () => {
+const getDefaultCart = (products) => {
   let cart = {};
-  for (let i = 1; i < PRODUCTS.length + 1; i++) {
+  for (let i = 1; i < products.length + 1; i++) {
     cart[i] = 0;
   }
   return cart;
 };
 
 export const ShopContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState(getDefaultCart());
+  const [cartItems, setCartItems] = useState({});
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get("https://fakestoreapi.com/products").then(({ data }) => {
+      setProducts(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (products.length > 0) {
+      setCartItems(getDefaultCart(products));
+    }
+  }, [products]);
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        let itemInfo = PRODUCTS.find((product) => product.id === Number(item));
-        totalAmount += cartItems[item] * itemInfo.price;
+
+    for (const itemId in cartItems) {
+      if (cartItems[itemId] > 0) {
+        const product = products.find((item) => item.id === Number(itemId));
+        if (product) {
+          totalAmount += cartItems[itemId] * product.price;
+        }
       }
     }
+
     return totalAmount;
   };
 

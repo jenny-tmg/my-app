@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+.cart-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 30%; 
+  margin-bottom: 20px;
+  }
+
+  .cartItem img {
+    width: 150px; 
+    height: auto;
+    margin-right: 20px;
+  }
+
+  .description {
+    font-size: 16px; 
+    max-height: 3%;
+    line-height: 1.2;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
+ 
+  }
+  
+  .item-image img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  
+  .item-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .item-info h3 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .item-info p {
+    margin-bottom: 10px;
+  }
+  
+  .item-info .quantity {
+    display: flex;
+    align-items: center;
+  }
+  
+  .item-info .quantity button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+  }
+
+
+
+
+
+
+  .item-info .remove-button {
+    background-color:#0c0b0b;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+  }
+
+  .checkout button {
+    width: 150px;
+    height: 50px;
+    background-color: #0c0b0b; /* Set the background color to black */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+    font-family: Arial, sans-serif;
+  }
+  
+  .checkout button:hover {
+    background-color: #0c0b0b; 
+    font-family: Arial, sans-serif;
+    
+  }
+
+  .removeBtn,
+.quantityBtn {
+  padding: 5px 10px;
+  background-color: #0c0b0b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.removeBtn:hover,
+.quantityBtn:hover {
+  background-color: #0c0b0b;
+}
+
+@media (max-width: 768px) {
+  .cart-list {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .cartItems {
+    padding: 10px;
+  }
+}
+
+  

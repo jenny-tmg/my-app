@@ -1,31 +1,51 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../../context/shop-context";
+import "./cart-item.css";
 
-export const CartItem = (props) => {
-  const { id, productName, price, productImage } = props.data;
-  const { cartItems, addToCart, removeFromCart, updateCartItemCount } =
-    useContext(ShopContext);
+export const CartItem = ({ itemId }) => {
+  const { cartItems, addToCart, removeFromCart } = useContext(ShopContext);
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    // Fetch the product data based on the itemId
+    fetch(`https://fakestoreapi.com/products/${itemId}`)
+      .then((response) => response.json())
+      .then((data) => setProduct(data))
+      .catch((error) => console.log("Error fetching product:", error));
+  }, [itemId]);
+
+  if (!product) {
+    return <div>Loading...</div>; // Display a loading message while fetching the product data
+  }
+
+  const quantity = cartItems[itemId];
+
+  const fallbackImage = "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg";
 
   return (
     <div className="cartItem">
-      <img src={productImage} />
-      <div className="description">
-        <p>
-          <b>{productName}</b>
-        </p>
-        <p> Price: ${price}</p>
-        <div className="countHandler">
-          <button onClick={() => removeFromCart(id)}> - </button>
-          <input
-            value={cartItems[id]}
-            onChange={(e) => updateCartItemCount(Number(e.target.value), id)}
-          />
-          <button onClick={() => addToCart(id)}> + </button>
+      <div className="itemInfo">
+        <img src={product.image || fallbackImage} alt={product.title} />
+        <div className="description">
+          <h3>{product.title}</h3>
+          <p>{product.description}</p>
+        </div>
+      </div>
+      <div className="itemActions">
+        <p>Price: ${product.price}</p>
+        <button className="removeBtn" onClick={() => removeFromCart(itemId)}>Remove</button>
+        <div className="quantity">
+          <button className="quantityBtn" onClick={() => removeFromCart(itemId)}>-</button>
+          <span>{quantity}</span>
+          <button className="quantityBtn" onClick={() => addToCart(itemId)}>+</button>
         </div>
       </div>
     </div>
   );
 };
+
+
+
 
 
 
